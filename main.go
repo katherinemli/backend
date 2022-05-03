@@ -99,9 +99,9 @@ func Distance(lat1 float64, lng1 float64, lat2 float64, lng2 float64, unit strin
 func RawDistance(lat1 float64, lng1 float64, lat2 float64, lng2 float64) float64 {
 	return Distance(lat1, lng1, lat2, lng2, "")
 }
-func initSQL(uri string, dbName string) *sql.DB {
+func initSQL(uri string) *sql.DB {
 
-	db, err := sql.Open(`mysql`, uri+dbName+`?parseTime=true`)
+	db, err := sql.Open(`mysql`, uri+`?parseTime=true`)
 	if err != nil {
 		fmt.Println("error")
 	}
@@ -132,10 +132,8 @@ func getSQLData(sqlR *sql.DB) allAddress {
 func getOneEvent(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	// sqlURI := "root:pituss13@tcp(127.0.0.1:3306)/"
-	sqlName := "/heroku_c82ef9d16b0b6a7"
-	fmt.Println("sqlName:", sqlName)
 	sqlURI := os.Getenv(("DATABASE_URL"))
-	sqlR := initSQL(sqlURI, sqlName)
+	sqlR := initSQL(sqlURI)
 	allAddress := getSQLData(sqlR)
 	json.NewEncoder(w).Encode(allAddress)
 	for _, singleAddress := range allAddress {
