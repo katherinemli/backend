@@ -7,6 +7,7 @@ import (
 	"log"
 	"math"
 	"net/http"
+	"os"
 
 	"github.com/rs/cors"
 
@@ -54,7 +55,8 @@ func main() {
 	})
 
 	handler := c.Handler(router)
-	log.Fatal(http.ListenAndServe(":3000", handler))
+	port := os.Getenv(("PORT"))
+	log.Fatal(http.ListenAndServe(":"+port, handler))
 }
 func Factorial(x int) int {
 	if x == 0 {
