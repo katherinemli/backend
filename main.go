@@ -130,19 +130,18 @@ func getSQLData(sqlR *sql.DB) allAddress {
 	return addressSelected
 }
 func getOneEvent(w http.ResponseWriter, r *http.Request) {
-	/* 	w.Header().Set("Access-Control-Allow-Origin", "*")
-	   	sqlURI := "root:pituss13@tcp(127.0.0.1:3306)/"
-	   	sqlName := "Address"
-	   	fmt.Println("sqlName:", sqlName)
-	   	fmt.Println("sqlURI:", sqlURI)
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	// sqlURI := "root:pituss13@tcp(127.0.0.1:3306)/"
+	sqlName := "/heroku_c82ef9d16b0b6a7"
+	fmt.Println("sqlName:", sqlName)
+	sqlURI := os.Getenv(("PORT"))
+	sqlR := initSQL(sqlURI, sqlName)
+	allAddress := getSQLData(sqlR)
+	json.NewEncoder(w).Encode(allAddress)
+	for _, singleAddress := range allAddress {
+		io.WriteString(w, singleAddress.Location)
+	}
 
-	   	sqlR := initSQL(sqlURI, sqlName)
-	   	allAddress := getSQLData(sqlR)
-	   	json.NewEncoder(w).Encode(allAddress) */
-	/* 	for _, singleAddress := range allAddress {
-		json.NewEncoder(w).Encode(singleAddress)
-	} */
-	io.WriteString(w, "hola mundo")
 }
 func createRouter(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("entre")
