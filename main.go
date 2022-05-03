@@ -50,6 +50,7 @@ func main() {
 	   	router.HandleFunc("/address", homeLink).Methods("GET")
 	   	router.HandleFunc("/createRoute/{id}", createRouter).Methods("POST") */
 	router.HandleFunc("/", getOneEvent).Methods("GET")
+	router.HandleFunc("/createRoute/{id}", createRouter).Methods("POST")
 	c := cors.New(cors.Options{
 		AllowedOrigins:   []string{"http://localhost:8080"},
 		AllowCredentials: true,
@@ -100,7 +101,6 @@ func RawDistance(lat1 float64, lng1 float64, lat2 float64, lng2 float64) float64
 	return Distance(lat1, lng1, lat2, lng2, "")
 }
 func initSQL(uri string) *sql.DB {
-	// db, err := sql.Open(`mysql`, uri+`?parseTime=true`)
 	db, err := sql.Open(`mysql`, uri)
 	if err != nil {
 		fmt.Println("error")
