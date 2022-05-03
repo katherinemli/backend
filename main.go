@@ -134,7 +134,7 @@ func getOneEvent(w http.ResponseWriter, r *http.Request) {
 	// sqlURI := "root:pituss13@tcp(127.0.0.1:3306)/"
 	sqlName := "/heroku_c82ef9d16b0b6a7"
 	fmt.Println("sqlName:", sqlName)
-	sqlURI := os.Getenv(("PORT"))
+	sqlURI := os.Getenv(("DATABASE_URL"))
 	sqlR := initSQL(sqlURI, sqlName)
 	allAddress := getSQLData(sqlR)
 	json.NewEncoder(w).Encode(allAddress)
