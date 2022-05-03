@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	"io"
 	"log"
 	"math"
 	"net/http"
@@ -45,10 +46,10 @@ type CallbackEnd func()
 func main() {
 
 	router := mux.NewRouter().StrictSlash(true)
+	/* 	router.HandleFunc("/", getOneEvent).Methods("GET")
+	   	router.HandleFunc("/address", homeLink).Methods("GET")
+	   	router.HandleFunc("/createRoute/{id}", createRouter).Methods("POST") */
 	router.HandleFunc("/", getOneEvent).Methods("GET")
-	router.HandleFunc("/address", homeLink).Methods("GET")
-	router.HandleFunc("/createRoute/{id}", createRouter).Methods("POST")
-
 	c := cors.New(cors.Options{
 		AllowedOrigins:   []string{"http://localhost:8080"},
 		AllowCredentials: true,
@@ -129,18 +130,19 @@ func getSQLData(sqlR *sql.DB) allAddress {
 	return addressSelected
 }
 func getOneEvent(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	sqlURI := "root:pituss13@tcp(127.0.0.1:3306)/"
-	sqlName := "Address"
-	fmt.Println("sqlName:", sqlName)
-	fmt.Println("sqlURI:", sqlURI)
+	/* 	w.Header().Set("Access-Control-Allow-Origin", "*")
+	   	sqlURI := "root:pituss13@tcp(127.0.0.1:3306)/"
+	   	sqlName := "Address"
+	   	fmt.Println("sqlName:", sqlName)
+	   	fmt.Println("sqlURI:", sqlURI)
 
-	sqlR := initSQL(sqlURI, sqlName)
-	allAddress := getSQLData(sqlR)
-	json.NewEncoder(w).Encode(allAddress)
+	   	sqlR := initSQL(sqlURI, sqlName)
+	   	allAddress := getSQLData(sqlR)
+	   	json.NewEncoder(w).Encode(allAddress) */
 	/* 	for _, singleAddress := range allAddress {
 		json.NewEncoder(w).Encode(singleAddress)
 	} */
+	io.WriteString(w, "hola mundo")
 }
 func createRouter(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("entre")
