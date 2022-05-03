@@ -100,8 +100,8 @@ func RawDistance(lat1 float64, lng1 float64, lat2 float64, lng2 float64) float64
 	return Distance(lat1, lng1, lat2, lng2, "")
 }
 func initSQL(uri string) *sql.DB {
-
-	db, err := sql.Open(`mysql`, uri+`?parseTime=true`)
+	// db, err := sql.Open(`mysql`, uri+`?parseTime=true`)
+	db, err := sql.Open(`mysql`, uri)
 	if err != nil {
 		fmt.Println("error")
 	}
