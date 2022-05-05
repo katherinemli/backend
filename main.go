@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	"io"
 	"log"
 	"math"
 	"net/http"
@@ -131,15 +130,13 @@ func getSQLData(sqlR *sql.DB) allAddress {
 }
 func getOneEvent(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
-	// sqlURI := "root:pituss13@tcp(127.0.0.1:3306)/"
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+
 	sqlURI := os.Getenv(("DATABASE_URL"))
 	sqlR := initSQL(sqlURI)
 	allAddress := getSQLData(sqlR)
 	json.NewEncoder(w).Encode(allAddress)
-	for _, singleAddress := range allAddress {
-		io.WriteString(w, singleAddress.Location)
-	}
-
 }
 func createRouter(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("entre")
