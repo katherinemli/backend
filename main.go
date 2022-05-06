@@ -48,7 +48,7 @@ func main() {
 	router.HandleFunc("/", getOneEvent).Methods("GET")
 	router.HandleFunc("/createRoute/{id}", createRouter).Methods("POST")
 	c := cors.New(cors.Options{
-		AllowedOrigins:   []string{"http://localhost:8080", "https://melodious-bublanina-19bee5.netlify.app"},
+		AllowedOrigins:   []string{"http://localhost:8080", "https://katherineliberonarouter.netlify.app"},
 		AllowCredentials: true,
 	})
 
